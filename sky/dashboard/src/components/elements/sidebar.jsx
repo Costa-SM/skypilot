@@ -50,6 +50,8 @@ import { useMobile } from '@/hooks/useMobile';
 import { UpgradeHint } from '@/components/elements/version-display';
 import { useGroupedNavLinks, usePluginRoutes } from '@/plugins/PluginProvider';
 import { PluginSlot } from '@/plugins/PluginSlot';
+import { ThemeToggle } from '@/components/elements/ThemeToggle';
+import { THEME_DARK, useTheme } from '@/hooks/useTheme';
 
 // Create a context for sidebar state management
 const SidebarContext = createContext(null);
@@ -198,6 +200,7 @@ export function SideBar({ highlighted = 'clusters' }) {
 export function TopBar() {
   const router = useRouter();
   const isMobile = useMobile();
+  const { resolvedTheme } = useTheme();
   const {
     userEmail,
     userRole,
@@ -528,7 +531,7 @@ export function TopBar() {
             >
               <div className={`h-20 w-20 flex items-center justify-center`}>
                 <Image
-                  src={`${BASE_PATH}/skypilot.svg`}
+                  src={`${BASE_PATH}/${resolvedTheme === THEME_DARK ? 'skypilot-dark' : 'skypilot'}.svg`}
                   alt="SkyPilot Logo"
                   width={80}
                   height={80}
@@ -681,6 +684,8 @@ export function TopBar() {
                     <CommentFeedbackIcon className="w-5 h-5" />
                   </a>
                 </CustomTooltip>
+
+                <ThemeToggle />
 
                 <div className="border-l border-gray-200 h-6"></div>
 
@@ -953,6 +958,10 @@ export function TopBar() {
                   <SlackIcon className="w-5 h-5 mr-3" />
                   Slack
                 </a>
+
+                <div className="px-4 py-3">
+                  <ThemeToggle />
+                </div>
 
                 {/* Config link: hidden for non-admins when the server
                     restricts config to admins (it exposes secrets). */}

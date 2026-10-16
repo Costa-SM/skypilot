@@ -59,3 +59,32 @@ Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) with you
 You can start editing the page by modifying the files. The page auto-updates as you edit the file.
 
 Execute `npm run lint` for static code analysis and `npm run format` to format the code with `prettier`.
+
+## Theming (light / dark)
+
+The dashboard has Light, Dark and System themes. The choice is stored in
+`localStorage` (`skypilot-dashboard-theme`) and applied before first paint by an
+inline script in `src/pages/_document.js`.
+
+Colors are CSS variables (HSL channels) in `src/app/globals.css`, exposed to
+Tailwind in `tailwind.config.js`, and change under the `.dark` class. Use them
+instead of raw palette classes (`bg-white`, `text-gray-600`, `bg-red-50`) and
+hex values, which do not follow the theme:
+
+- Backgrounds: `bg-surface`, `bg-surface-subtle`, `bg-surface-muted`, `bg-surface-strong`
+- Text: `text-content-strong`, `text-content`, `text-content-secondary`, `text-content-tertiary`, `text-content-faint`
+- Borders: `border-line-subtle`, `border-line`, `border-line-strong`
+- Brand: `text-brand`, `text-brand-bright`, `bg-brand-solid`
+- Status and accent colors: `bg-red-tint`, `border-red-line`, `text-red-fg`, `text-red-fg-strong`, `bg-red-solid` (with `text-white`). The colors and roles available are listed in `tailwind.config.js`; to use a new one, add it there and in `globals.css`.
+
+In CSS-in-JS or injected styles, use `hsl(var(--surface))` and similar.
+`src/app/tokens.test.js` checks the contrast of the token pairs.
+
+### Reading the theme from plugins
+
+- `<html>` has the `dark` class in dark mode, and `data-theme="light|dark"`
+  always holds the resolved theme. Observe it with a `MutationObserver` on
+  `document.documentElement` to react to changes.
+- Every token is a CSS variable, for example `color: hsl(var(--content))`.
+- Host Tailwind classes such as `bg-surface` work in plugins only if the plugin
+  content is included through `SKYPILOT_DASHBOARD_TAILWIND_CONTENT`.

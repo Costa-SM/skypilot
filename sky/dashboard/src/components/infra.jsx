@@ -192,7 +192,7 @@ const CleanUtilizationBar = ({
       <Tooltip
         placement="top"
         content={
-          <span className="px-2 py-1 text-xs text-white bg-gray-800 rounded whitespace-nowrap">
+          <span className="px-2 py-1 text-xs text-white bg-gray-800 dark:bg-gray-700 rounded whitespace-nowrap">
             {value.toLocaleString()} {label}
           </span>
         }
@@ -1673,7 +1673,7 @@ export function ContextDetails({
                                 </span>
                               )}
                               {taintInfo && (
-                                <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium w-fit bg-gray-50 text-gray-700 ring-1 ring-inset ring-gray-600/20">
+                                <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium w-fit bg-gray-50 text-gray-700 ring-1 ring-inset ring-content-secondary/20">
                                   {taintInfo}
                                 </span>
                               )}
