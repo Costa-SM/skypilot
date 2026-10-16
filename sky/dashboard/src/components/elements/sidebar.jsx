@@ -50,7 +50,7 @@ import { useMobile } from '@/hooks/useMobile';
 import { UpgradeHint } from '@/components/elements/version-display';
 import { useGroupedNavLinks, usePluginRoutes } from '@/plugins/PluginProvider';
 import { PluginSlot } from '@/plugins/PluginSlot';
-import { ThemeToggle } from '@/components/elements/ThemeToggle';
+import { ThemeMenu, ThemeToggle } from '@/components/elements/ThemeToggle';
 import { THEME_DARK, useTheme } from '@/hooks/useTheme';
 
 // Create a context for sidebar state management
@@ -685,7 +685,7 @@ export function TopBar() {
                   </a>
                 </CustomTooltip>
 
-                <ThemeToggle />
+                <ThemeMenu />
 
                 <div className="border-l border-line h-6"></div>
 

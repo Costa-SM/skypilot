@@ -2,7 +2,7 @@ import React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, useTheme } from '@/hooks/useTheme';
-import { ThemeToggle } from '@/components/elements/ThemeToggle';
+import { ThemeMenu, ThemeToggle } from '@/components/elements/ThemeToggle';
 import { NO_FLASH_SCRIPT, THEME_STORAGE_KEY, resolveTheme } from '@/lib/theme';
 
 let systemDark;
@@ -88,6 +88,40 @@ describe('ThemeProvider', () => {
       </ThemeProvider>
     );
     expect(screen.getByText('system')).toBeInTheDocument();
+  });
+});
+
+describe('ThemeMenu', () => {
+  const renderMenu = () =>
+    render(
+      <ThemeProvider>
+        <ThemeMenu />
+      </ThemeProvider>
+    );
+
+  test('opens a menu, applies the pick and closes', async () => {
+    renderMenu();
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Theme' }));
+    expect(
+      screen.getByRole('menuitemradio', { name: 'System' })
+    ).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(screen.getByRole('menuitemradio', { name: 'Dark' }));
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  test('closes on Escape and on an outside click', async () => {
+    renderMenu();
+    const open = () =>
+      userEvent.click(screen.getByRole('button', { name: 'Theme' }));
+    await open();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await open();
+    await userEvent.click(document.body);
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
   });
 });
 
