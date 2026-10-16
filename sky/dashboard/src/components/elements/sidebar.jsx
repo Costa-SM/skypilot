@@ -156,21 +156,21 @@ export function SideBar({ highlighted = 'clusters' }) {
   // Common link style
   const linkStyle = (isHighlighted) => `
         flex items-center space-x-2
-        ${isHighlighted ? 'text-blue-600 font-semibold bg-blue-50' : 'text-gray-700'}
+        ${isHighlighted ? 'text-blue-fg font-semibold bg-blue-tint' : 'text-content'}
         relative z-10 py-2 px-4 rounded-sm
-        hover:bg-gray-100 hover:text-blue-700 transition-colors
+        hover:bg-surface-muted hover:text-blue-fg-strong transition-colors
         cursor-pointer w-full
     `;
 
   return (
     <div
       ref={sidebarRef}
-      className={`fixed top-14 left-0 flex flex-col w-64 bg-white border-r border-gray-200 h-[calc(100vh-56px)] z-20 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      className={`fixed top-14 left-0 flex flex-col w-64 bg-surface border-r border-line h-[calc(100vh-56px)] z-20 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       style={{ pointerEvents: 'auto' }}
     >
       <nav className="flex-1 overflow-y-auto py-2 mt-2">
         <div className="mt-2">
-          <div className="px-4 mb-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <div className="px-4 mb-2 text-xs font-medium text-content-tertiary uppercase tracking-wider">
             Workloads
           </div>
           <div className="px-2">
@@ -292,8 +292,8 @@ export function TopBar() {
   const getLinkClasses = (path) => {
     const isActive = isActivePath(path);
     const baseClasses = isActive
-      ? 'border-transparent text-blue-600'
-      : 'border-transparent hover:text-blue-600';
+      ? 'border-transparent text-blue-fg'
+      : 'border-transparent hover:text-blue-fg';
 
     return `inline-flex items-center border-b-2 ${baseClasses} ${
       isMobile ? 'px-2 py-1' : 'px-1 pt-1 space-x-2'
@@ -304,8 +304,8 @@ export function TopBar() {
     const isActive = !forceInactive && isActivePath(path);
     return `flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
       isActive
-        ? 'bg-blue-50 text-blue-600'
-        : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+        ? 'bg-blue-tint text-blue-fg'
+        : 'text-content hover:bg-surface-muted hover:text-blue-fg'
     }`;
   };
 
@@ -334,7 +334,7 @@ export function TopBar() {
       <span className="inline-flex items-center gap-1">
         <span>{link.label}</span>
         {link.badge && (
-          <span className="text-[10px] uppercase tracking-wide bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full">
+          <span className="text-[10px] uppercase tracking-wide bg-blue-tint-strong text-blue-fg-strong px-1.5 py-0.5 rounded-full">
             {link.badge}
           </span>
         )}
@@ -369,7 +369,7 @@ export function TopBar() {
           href={link.href}
           target={link.target}
           rel={link.rel}
-          className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 space-x-2 text-gray-700 hover:text-blue-600"
+          className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 space-x-2 text-content hover:text-blue-fg"
         >
           {renderNavLabel(link)}
         </a>
@@ -399,7 +399,7 @@ export function TopBar() {
         <span className="flex items-center gap-2">
           <span>{link.label}</span>
           {link.badge && (
-            <span className="text-[10px] uppercase tracking-wide bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full">
+            <span className="text-[10px] uppercase tracking-wide bg-blue-tint-strong text-blue-fg-strong px-1.5 py-0.5 rounded-full">
               {link.badge}
             </span>
           )}
@@ -445,8 +445,8 @@ export function TopBar() {
           onClick={() => setOpenNavDropdown(isOpen ? null : groupName)}
           className={`inline-flex items-center align-middle border-b-2 px-1 pt-1 space-x-1 ${
             isOpen
-              ? 'text-blue-600 border-blue-600'
-              : 'border-transparent text-gray-700 hover:text-blue-600'
+              ? 'text-blue-fg border-blue-solid'
+              : 'border-transparent text-content hover:text-blue-fg'
           }`}
         >
           <span>{groupName}</span>
@@ -464,13 +464,13 @@ export function TopBar() {
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 mt-1 min-w-[8rem] bg-white rounded-md shadow-lg border border-gray-200 z-50">
+          <div className="absolute top-full left-0 mt-1 min-w-[8rem] bg-surface rounded-md shadow-lg border border-line z-50">
             <div className="py-1">
               {links.map((link) => (
                 <Link
                   key={link.id}
                   href={resolvePluginHref(link.href)}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                  className="block px-4 py-2 text-sm text-content hover:bg-surface-muted transition-colors"
                   onClick={() => setOpenNavDropdown(null)}
                   prefetch={false}
                 >
@@ -493,7 +493,7 @@ export function TopBar() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 bg-white z-30 h-14 px-4 border-b border-gray-200 shadow-sm">
+      <div className="fixed top-0 left-0 right-0 bg-surface z-30 h-14 px-4 border-b border-line shadow-sm">
         <div className="flex items-center justify-between h-full">
           {/* Left side - Logo and mobile hamburger */}
           <div className="flex items-center space-x-4 mr-4 md:mr-6">
@@ -501,7 +501,7 @@ export function TopBar() {
             {isMobile && (
               <button
                 onClick={toggleMobileSidebar}
-                className="mobile-menu-button p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors"
+                className="mobile-menu-button p-2 rounded-md text-content-secondary hover:text-blue-fg hover:bg-surface-muted transition-colors"
                 aria-label="Toggle mobile menu"
               >
                 <svg
@@ -572,7 +572,7 @@ export function TopBar() {
                 <span>Volumes</span>
               </Link>
 
-              <div className="border-l border-gray-200 h-6 mx-1"></div>
+              <div className="border-l border-line h-6 mx-1"></div>
 
               <Link
                 href="/recipes"
@@ -632,7 +632,7 @@ export function TopBar() {
                     href="https://docs.skypilot.co/en/latest/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center align-middle border-b-2 border-transparent px-1 pt-1 space-x-1 text-gray-600 hover:text-blue-600 transition-colors duration-150 cursor-pointer"
+                    className="inline-flex items-center align-middle border-b-2 border-transparent px-1 pt-1 space-x-1 text-content-secondary hover:text-blue-fg transition-colors duration-150 cursor-pointer"
                     title="Docs"
                   >
                     <span className="leading-none">Docs</span>
@@ -648,7 +648,7 @@ export function TopBar() {
                     href="https://github.com/skypilot-org/skypilot"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center align-middle p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors duration-150 cursor-pointer"
+                    className="inline-flex items-center justify-center align-middle p-2 rounded-full text-content-secondary hover:bg-surface-muted transition-colors duration-150 cursor-pointer"
                     title="GitHub"
                   >
                     <GitHubIcon className="w-5 h-5" />
@@ -663,7 +663,7 @@ export function TopBar() {
                     href="https://slack.skypilot.co/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center align-middle p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors duration-150 cursor-pointer"
+                    className="inline-flex items-center justify-center align-middle p-2 rounded-full text-content-secondary hover:bg-surface-muted transition-colors duration-150 cursor-pointer"
                     title="Slack"
                   >
                     <SlackIcon className="w-5 h-5" />
@@ -678,7 +678,7 @@ export function TopBar() {
                     href="https://github.com/skypilot-org/skypilot/issues/new"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center align-middle p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors duration-150 cursor-pointer"
+                    className="inline-flex items-center justify-center align-middle p-2 rounded-full text-content-secondary hover:bg-surface-muted transition-colors duration-150 cursor-pointer"
                     title="Leave Feedback"
                   >
                     <CommentFeedbackIcon className="w-5 h-5" />
@@ -687,7 +687,7 @@ export function TopBar() {
 
                 <ThemeToggle />
 
-                <div className="border-l border-gray-200 h-6"></div>
+                <div className="border-l border-line h-6"></div>
 
                 {/* Version Display */}
                 <UpgradeHint />
@@ -703,8 +703,8 @@ export function TopBar() {
                       href="/settings"
                       className={`inline-flex items-center justify-center p-2 rounded-full transition-colors duration-150 cursor-pointer ${
                         isActivePath('/settings')
-                          ? 'text-blue-600 hover:bg-gray-100'
-                          : 'text-gray-600 hover:bg-gray-100'
+                          ? 'text-blue-fg hover:bg-surface-muted'
+                          : 'text-content-secondary hover:bg-surface-muted'
                       }`}
                       title="Configuration"
                       prefetch={false}
@@ -721,18 +721,18 @@ export function TopBar() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="inline-flex items-center justify-center rounded-full transition-colors duration-150 cursor-pointer hover:ring-2 hover:ring-blue-200"
+                  className="inline-flex items-center justify-center rounded-full transition-colors duration-150 cursor-pointer hover:ring-2 hover:ring-blue-line"
                   title="User Profile"
                 >
                   <div
-                    className={`${isMobile ? 'w-6 h-6 text-xs' : 'w-7 h-7 text-sm'} bg-blue-600 text-white rounded-full flex items-center justify-center font-medium hover:bg-blue-700 transition-colors`}
+                    className={`${isMobile ? 'w-6 h-6 text-xs' : 'w-7 h-7 text-sm'} bg-blue-solid text-white rounded-full flex items-center justify-center font-medium hover:bg-blue-solid-hover transition-colors`}
                   >
                     {getUserInitial(userEmail)}
                   </div>
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 border border-gray-200">
+                  <div className="absolute right-0 mt-2 w-48 bg-surface rounded-md shadow-lg z-50 border border-line">
                     {(() => {
                       let displayName = userEmail;
                       let emailToDisplay = null;
@@ -742,23 +742,23 @@ export function TopBar() {
                       }
                       return (
                         <>
-                          <div className="px-4 pt-2 pb-1 text-sm font-medium text-gray-900">
+                          <div className="px-4 pt-2 pb-1 text-sm font-medium text-content-strong">
                             {displayName}
                           </div>
                           {emailToDisplay && (
-                            <div className="px-4 pt-0 pb-1 text-xs text-gray-500">
+                            <div className="px-4 pt-0 pb-1 text-xs text-content-tertiary">
                               {emailToDisplay}
                             </div>
                           )}
                           {userRole && (
                             <div className="px-4 pt-0 pb-2 text-xs">
                               {userRole === 'admin' ? (
-                                <span className="inline-flex items-center text-blue-600">
+                                <span className="inline-flex items-center text-blue-fg">
                                   <StarIcon className="w-3 h-3 mr-1" />
                                   Admin
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center text-gray-600">
+                                <span className="inline-flex items-center text-content-secondary">
                                   <User className="w-3 h-3 mr-1" />
                                   User
                                 </span>
@@ -775,7 +775,7 @@ export function TopBar() {
                         closeDropdown: () => setIsDropdownOpen(false),
                       }}
                       prefix={
-                        <div className="border-t border-gray-200 mx-1 my-1"></div>
+                        <div className="border-t border-line mx-1 my-1"></div>
                       }
                     />
                   </div>
@@ -800,7 +800,7 @@ export function TopBar() {
           {/* Mobile Sidebar */}
           <div
             ref={mobileNavRef}
-            className={`fixed top-14 left-0 h-[calc(100vh-56px)] w-64 bg-white border-r border-gray-200 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+            className={`fixed top-14 left-0 h-[calc(100vh-56px)] w-64 bg-surface border-r border-line shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
               isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
             }`}
           >
@@ -810,8 +810,8 @@ export function TopBar() {
                   href="/clusters"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/clusters')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -824,8 +824,8 @@ export function TopBar() {
                   href="/jobs"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/jobs')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -838,8 +838,8 @@ export function TopBar() {
                   href="/volumes"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/volumes')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -848,14 +848,14 @@ export function TopBar() {
                   Volumes
                 </Link>
 
-                <div className="border-t border-gray-200 my-4"></div>
+                <div className="border-t border-line my-4"></div>
 
                 <Link
                   href="/recipes"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/recipes')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -868,8 +868,8 @@ export function TopBar() {
                   href="/infra"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/infra')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -882,8 +882,8 @@ export function TopBar() {
                   href="/workspaces"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/workspaces')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -896,8 +896,8 @@ export function TopBar() {
                   href="/users"
                   className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                     isActivePath('/users')
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                      ? 'bg-blue-tint text-blue-fg'
+                      : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                   }`}
                   onClick={toggleMobileSidebar}
                   prefetch={false}
@@ -906,7 +906,7 @@ export function TopBar() {
                   Users
                 </Link>
 
-                <div className="border-t border-gray-200 my-4"></div>
+                <div className="border-t border-line my-4"></div>
 
                 {/* Ungrouped plugins */}
                 {ungrouped.map((link) => renderMobilePluginNavLink(link))}
@@ -914,7 +914,7 @@ export function TopBar() {
                 {/* Grouped plugins (displayed flat on mobile) */}
                 {Object.entries(groups).map(([groupName, links]) => (
                   <div key={groupName}>
-                    <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    <div className="px-4 py-2 text-xs font-semibold text-content-tertiary uppercase tracking-wider">
                       {groupName}
                     </div>
                     {links.map((link) => renderMobilePluginNavLink(link))}
@@ -922,7 +922,7 @@ export function TopBar() {
                 ))}
 
                 {(ungrouped.length > 0 || Object.keys(groups).length > 0) && (
-                  <div className="border-t border-gray-200 my-4"></div>
+                  <div className="border-t border-line my-4"></div>
                 )}
 
                 {/* External links in mobile */}
@@ -930,7 +930,7 @@ export function TopBar() {
                   href="https://docs.skypilot.co/en/latest/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md transition-colors"
+                  className="flex items-center px-4 py-3 text-sm font-medium text-content hover:bg-surface-muted hover:text-blue-fg rounded-md transition-colors"
                   onClick={toggleMobileSidebar}
                 >
                   <ExternalLinkIcon className="w-5 h-5 mr-3" />
@@ -941,7 +941,7 @@ export function TopBar() {
                   href="https://github.com/skypilot-org/skypilot"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md transition-colors"
+                  className="flex items-center px-4 py-3 text-sm font-medium text-content hover:bg-surface-muted hover:text-blue-fg rounded-md transition-colors"
                   onClick={toggleMobileSidebar}
                 >
                   <GitHubIcon className="w-5 h-5 mr-3" />
@@ -952,7 +952,7 @@ export function TopBar() {
                   href="https://slack.skypilot.co/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md transition-colors"
+                  className="flex items-center px-4 py-3 text-sm font-medium text-content hover:bg-surface-muted hover:text-blue-fg rounded-md transition-colors"
                   onClick={toggleMobileSidebar}
                 >
                   <SlackIcon className="w-5 h-5 mr-3" />
@@ -970,8 +970,8 @@ export function TopBar() {
                     href="/settings"
                     className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
                       isActivePath('/settings')
-                        ? 'bg-blue-50 text-blue-600'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                        ? 'bg-blue-tint text-blue-fg'
+                        : 'text-content hover:bg-surface-muted hover:text-blue-fg'
                     }`}
                     onClick={toggleMobileSidebar}
                     prefetch={false}

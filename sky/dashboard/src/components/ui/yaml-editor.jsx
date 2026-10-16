@@ -238,7 +238,7 @@ export function YamlEditor({
   );
   return (
     <div
-      className={`rounded-md border border-gray-200 overflow-hidden flex flex-col ${className || ''}`}
+      className={`rounded-md border border-line overflow-hidden flex flex-col ${className || ''}`}
       style={{
         width: '100%',
         maxWidth: '100%',
